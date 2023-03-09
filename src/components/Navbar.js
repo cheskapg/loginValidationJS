@@ -9,7 +9,8 @@ export default function Navbar({ link }) {
             <Link href="/about">About Us</Link>
             <Link href="/events">Events</Link>
             <Link href="/todo">Todo</Link>
-            <Link href="/login">Login</Link> 
+            <Link href="/welcome">Welcome</Link>
+            
         </div>
     )
 }

@@ -5,4 +5,14 @@
     body {
       @apply bg-black;
     }
+    :global(.login-component) {
+     
+  }
+  :global {
+    .login-component {
+      background: url("https://i.ebayimg.com/images/g/NtcAAOSwGhReuH1N/s-l1600.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+    
+}
   }
