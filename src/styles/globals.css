@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer base {
     body {
-      @apply bg-black;
+      /* @apply bg-black; */
     }
     :global(.login-component) {
      

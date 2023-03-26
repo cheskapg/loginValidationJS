@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { globalUserList } from "./signup";
+import { useState , useEffect} from "react";
+import { globalUserList, setUserList, prepreg } from "./signup";
 import userList from "./signup";
 import { useRouter } from 'next/router';
 function App({ list }) {
@@ -19,7 +19,7 @@ function App({ list }) {
   const [loginstatus, setLoginStat] = useState(true);
  
   const router = useRouter();
-  
+
   const [status, setstatus] = useState("");
   const notify = () => toast("Wow so easy!");
   const [passErr, setPassErr] = useState(false);
@@ -43,13 +43,23 @@ function App({ list }) {
   function checkLogin() {
 
     console.log(globalUserList);
-    if (
-        globalUserList.find(x => x.username === login["User"])
-       &&
-       globalUserList.find(x => x.password === login["Password"])&&
-      login["Password"] !== "" &&
-      login["User"] !== ""
-    ) {
+    const validUser = globalUserList.find(
+      (user) => user.username === login["User"] && user.password === login["Password"]
+    );
+    if (validUser) {
+      // Authentication successful
+      setPassErr(false);
+      setUserErr(false);
+      setLoginStat(false);
+      boardSwitch();
+//     } 
+//     if (
+//         globalUserList.find(x => x.username === login["User"])
+//  &&
+//        globalUserList.find(x => x.password === login["Password"])&&
+//       login["Password"] !== "" &&
+//       login["User"] !== ""
+//     ) {
     //   setstatus("Authenticated");
       setPassErr(false);
       setUserErr(false);
@@ -176,6 +186,25 @@ function App({ list }) {
                         Join Us
                       </button>
                     </div>
+                    <p className="text-green-500 grid justify-center mt-10 text-lg ">
+                {globalUserList.map((user, index) => {
+                  return (
+                    <li className="text-lg pt-5 flex" key={index}>
+                      <div class="">
+                        <div className="grid grid-cols-1">
+                          <h5 class="text-white dark:text-white">
+                            {index + 1}: {user.username}
+                          </h5>
+
+                          <p class="mb-3 font-normal text-gray-700  dark:text-white">
+                            {user.password}
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </p>
                   </div>
                 </div>
               </div>

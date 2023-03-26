@@ -9,6 +9,14 @@ function App() {
     email: "",
     password: "",
   });
+  function prepreg(){
+    
+  
+  useEffect(() => {
+    setUserList(currentList => [{ username: "admin", email: "emel", password: "test" },  ]);
+  }, []);
+}
+prepreg();
   const router = useRouter();
   const [passErr, setPassErr] = useState(false);
   const [userErr, setUserErr] = useState(false);
@@ -41,23 +49,15 @@ function App() {
   function registerUser() {
     if (user.username === "") {
       setUserErr(true);
-    
-    }
-    else if (user.password === "" ||  user.password.length <=7){
+    } else if (user.password === "" || user.password.length <= 7) {
       setPassErr(true);
- 
-    }   
-    else if (user.email === "") {
+    } else if (user.email === "") {
       setEmailErr(true);
-      
-    }
-  
-     else {
-
-        setUserList([user, ...userList]);
-        globalUserList = userList;
-        console.log(userList);
-        console.log(globalUserList);
+    } else {
+      setUserList([user, ...userList]);
+      globalUserList = userList;
+      console.log(userList);
+      console.log(globalUserList);
     }
   }
 
@@ -178,5 +178,5 @@ function App() {
     </section>
   );
 }
-export { globalUserList };
+export { globalUserList};
 export default App;

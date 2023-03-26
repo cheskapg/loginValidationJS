@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 function App({ list }) {
   const router = useRouter();
   function loginswitch() {
-    router.push("/login");
+    router.push("/signup");
   }
   return (
     <section className="bg-black h-screen ">
