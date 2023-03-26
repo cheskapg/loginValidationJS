@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-
+import { useRouter } from 'next/router';
 export default function todo() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState({
@@ -8,8 +8,11 @@ export default function todo() {
     description: ""
 
   });
-
-
+ 
+  const router = useRouter();
+  function loginSwitch(){
+    router.push('/login');
+  }
   const [todoTab, setTodoTab] = useState(true);
 
  
@@ -55,12 +58,12 @@ export default function todo() {
 
   return (
     <div className="grid grid-cols-1">
-      <div className="px-5  mb-10 border border-grey">
+      <div className="px-5  mb-10 border border-green-500 ">
         <div className="mx-10  grid grid-cols-2">
-          <div className="flex justify-start grid text-md px-5 py-5 font-semibold ">
+          <div className="flex justify-start grid text-green-500 text-md px-5 py-5 font-semibold ">
             Scrum Board
           </div>
-          <div className="flex justify-end grid text-sm text-gray-500 px-5 py-5 font-semibold ">
+          <div onClick={loginSwitch} className="flex justify-end grid text-sm text-green-500 px-5 py-5 font-semibold ">
             Logout
           </div>
         </div>
@@ -68,7 +71,7 @@ export default function todo() {
       <div>
         <div className="flex justify-start mx-10">
           <div className="mx-10">
-            <div className="text-2xl font-bold mb-5">Boards</div>
+            <div className="text-2xl font-bold text-green-500 mb-5">Boards</div>
           </div>
 
           {/* <button
@@ -92,15 +95,15 @@ export default function todo() {
             <div className="mx-10">
               <div className="grid-cols-4 gap-4 ">
                 <div className="grid grid-cols-3 ">
-                  <div class="grid border border-grey rounded-xl shadow">
-                    <div className="text-lg text-sm text-black font-semibold mx-3 mt-4">
+                  <div class="grid border border-green-500 rounded-xl shadow">
+                    <div className="text-lg text-sm text-green-500 font-semibold mx-3 mt-4">
                       <input
                         name="title"
                         value={todo.title}
                         placeholder="Board Title"
                         onChange={titleChange}
-                        className=" pb-2 rounded-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  text-sm focus:shadow-outline placeholder:font-normal placeholder:text-sm"
-                        id="username"
+                        className=" pb-2 rounded-lg appearance-none border border-green-500 rounded w-full py-2 px-3 text-green-500 leading-tight focus:outline-none  text-sm focus:shadow-outline bg-black  placeholder:font-normal placeholder:text-sm placeholder:text-green-300"
+                     
                         type="text"
                       />
                     </div>
@@ -108,7 +111,10 @@ export default function todo() {
                       <textarea
                         id="message"
                         rows="4"
-                        class="block p-2.5 w-full text-xs rounded-lg border text- border-gray-300 placeholder:font-normal placeholder:text-sm resize-none"
+                        class="block p-2.5 w-full text-xs rounded-lg border text- border-green-500 bg-black placeholder:font-normal text-green-500 placeholder:text-green-300 placeholder:text-sm   border: none  
+                        background-color:transparent
+                        resize:none
+                        focus:border-bg-black focus:borderfocus:ring-0  focus:border-black focus:ring-0"
                         placeholder="Enter a Description"
                         name="description"
                         value={todo.description}
@@ -118,7 +124,8 @@ export default function todo() {
                     <div class="grid grid-cols-2 flex items-center mb-5">
                       <button
                         onClick={switchDone}
-                        className="mt-3 mx-4 shadow bg-black-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-black  py-1 px-10 rounded"
+                        className="mt-3 mx-4 shadow bg-black-500 hover:bg-black focus:shadow-outline  text-green-500 focus:outline-none 
+                          py-1 px-10 rounded"
                         type="button"
                       >
                         Cancel
@@ -126,7 +133,8 @@ export default function todo() {
 
                       <button
                         onClick={addTodo}
-                        className="mt-3 mx-4 shadow bg-blue-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white py-1 px-4 rounded"
+                        className="mt-3 mx-4 shadow bg-black hover:bg-green-500 hover:text-black focus:shadow-outline  text-green-500 focus:outline-none 
+                          py-1 px-10 rounded"
                         type="button"
                       >
                         Add
@@ -150,7 +158,7 @@ export default function todo() {
                           
                           {(todo.title==="plus") ? (
                             <li className="text-sm pt-2 flex">
-                              <div class="flex w-full px-5 py-5 flex justify-center border border-grey rounded-xl shadow "
+                              <div class="flex w-full px-5 py-5 flex justify-center border border-grey rounded-xl shadow  text-green-500"
                               onClick={switchTodo}>
                                 <div id="plus" className=" mb-3 text-bold text-2xl">+</div>
                             
@@ -164,7 +172,7 @@ export default function todo() {
                                   {todo.title}
                                 </h5>
 
-                                <p class="mb-3 font-regular  tracking-tight text-xs dark:text-gray-500 ">
+                                <p class="mb-3 font-regular  tracking-tight text-xs dark:text-green-500">
                                   {todo.description}
                                 </p>
                               </div>

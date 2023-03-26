@@ -21,7 +21,6 @@ function App({ list }) {
   const router = useRouter();
 
   const [status, setstatus] = useState("");
-  const notify = () => toast("Wow so easy!");
   const [passErr, setPassErr] = useState(false);
   const [userErr, setUserErr] = useState(false);
   function logout(){
