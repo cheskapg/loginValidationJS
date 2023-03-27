@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { useRouter } from 'next/router';
 export default function todo() {
   const [todos, setTodos] = useState([]);
@@ -9,6 +9,14 @@ export default function todo() {
 
   });
  
+  // useEffect(() => {
+  //   setTodos((currentList) => [
+     
+  //     { title: "plus", description: "" }, ...currentList
+  //   ]);
+  // }, []);
+
+  
   const router = useRouter();
   function loginSwitch(){
     router.push('/login');
@@ -51,6 +59,13 @@ export default function todo() {
 
   function switchDone() {
     setTodoTab(false);
+    if (todos.length > 0 && todos[todos.length - 1].title === "plus") {
+      todos.pop();
+    }
+    setTodos((currentList) => [
+      ...currentList,
+      { title: "plus", description: "" },
+    ]);
   }
   function switchTodo() {
     setTodoTab(true);
@@ -63,8 +78,9 @@ export default function todo() {
           <div className="flex justify-start grid text-green-500 text-md px-5 py-5 font-semibold ">
             Scrum Board
           </div>
-          <div onClick={loginSwitch} className="flex justify-end grid text-sm text-green-500 px-5 py-5 font-semibold ">
-            Logout
+          <div onClick={loginSwitch} className="flex  justify-end grid text-sm text-green-500 px-5 py-5 font-semibold ">
+            <p className="cursor-pointer">Logout
+              </p>
           </div>
         </div>
       </div>
@@ -114,7 +130,8 @@ export default function todo() {
                         class="block p-2.5 w-full text-xs rounded-lg border text- border-green-500 bg-black placeholder:font-normal text-green-500 placeholder:text-green-300 placeholder:text-sm   border: none  
                         background-color:transparent
                         resize:none
-                        focus:border-bg-black focus:borderfocus:ring-0  focus:border-black focus:ring-0"
+                        focus:border-bg-black focus:borderfocus:ring-0  focus:border-black focus:ring-0 
+                        resize-none"
                         placeholder="Enter a Description"
                         name="description"
                         value={todo.description}
@@ -124,7 +141,7 @@ export default function todo() {
                     <div class="grid grid-cols-2 flex items-center mb-5">
                       <button
                         onClick={switchDone}
-                        className="mt-3 mx-4 shadow bg-black-500 hover:bg-black focus:shadow-outline  text-green-500 focus:outline-none 
+                        className="mt-3 mx-4 shadow bg-black-500 hover:bg-green-500 hover:text-black focus:shadow-outline  text-green-500 focus:outline-none 
                           py-1 px-10 rounded"
                         type="button"
                       >
@@ -133,7 +150,7 @@ export default function todo() {
 
                       <button
                         onClick={addTodo}
-                        className="mt-3 mx-4 shadow bg-black hover:bg-green-500 hover:text-black focus:shadow-outline  text-green-500 focus:outline-none 
+                        className="mt-3 mx-4 shadow bg-green-500 hover:bg-black hover:text-green-500 focus:shadow-outline  text-black focus:outline-none 
                           py-1 px-10 rounded"
                         type="button"
                       >
@@ -158,7 +175,7 @@ export default function todo() {
                           
                           {(todo.title==="plus") ? (
                             <li className="text-sm pt-2 flex">
-                              <div class="flex w-full px-5 py-5 flex justify-center border border-grey rounded-xl shadow  text-green-500"
+                              <div class="flex w-full px-5 py-5 flex justify-center border border-green-500 rounded-xl shadow  dark:text-green-500"
                               onClick={switchTodo}>
                                 <div id="plus" className=" mb-3 text-bold text-2xl">+</div>
                             
@@ -166,9 +183,9 @@ export default function todo() {
                             </li>
                           ) : (
                             <li className="text-sm pt-2 flex" key={index}>
-                             <div class="flex w-full px-5 py-3 border border-grey rounded-xl shadow ">
+                             <div class="flex w-full px-5 py-3 border  text-green-500 border-green-500 rounded-xl shadow ">
                               <div className="grid grid-cols-1 mb-3">
-                                <h5 class=" font-semibold tracking-tight text-md dark:text-black">
+                                <h5 class=" font-semibold text-green-500  tracking-tight text-md">
                                   {todo.title}
                                 </h5>
 

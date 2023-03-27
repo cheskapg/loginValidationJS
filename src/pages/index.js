@@ -19,7 +19,7 @@ function App({ list }) {
             </div>
             <div className="mt-10">
               <h3 className=" text-center mb-5 font-bold text-3xl hover:text-white text-green-500" onClick={loginswitch}>
-                Enter
+                ENTER
               </h3>
             </div>
          

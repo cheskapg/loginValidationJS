@@ -33,6 +33,7 @@ function App({ list }) {
       }
     )
   }
+
   function signupSwitch(){
     router.push('/signup');
   }
@@ -66,48 +67,30 @@ function App({ list }) {
       boardSwitch();
 
     } 
-    // else if (
-    //     login["User"] != user &&
-    //     login["Password"] == pass &&
-    //     login["Password"] !== "" &&
-    //     login["User"] !== ""
-    //   ) {
-    //     setstatus(" ERROR");
-    //     setPassErr(false);
-    //     setUserErr(false);
-    //   } else if (
-    //     login["User"] === user &&
-    //     login["Password"] !== pass &&
-    //     login["Password"] !== "" &&
-    //     login["User"] !== ""
-    //   ) {
-    //     setstatus(" ERROR");
-    //     setPassErr(false);
-    //     setUserErr(false);
-    //   } else if (
-    //     login["User"] !== user &&
-    //     login["Password"] !== pass &&
-    //     login["Password"] !== "" &&
-    //     login["User"] !== ""
-    //   ) {
-    //     setstatus(" ERROR");
-    //     setPassErr(false);
-    //     setUserErr(false);
-    //   }
+    else if (
+        login["Password"] !== "" &&
+        login["User"] !== ""
+      ) {
+        setstatus(" ERROR");
+        setPassErr(false);
+        setUserErr(false);
+      }
   
-    //   if (login["Password"] === "") {
-    //     setPassErr(true);
-    //   }
-    //   if (login["User"] === "") {
-    //     setUserErr(true);
-    //   }
+      if (login["Password"] === "") {
+        setPassErr(true);
+      }
+      if (login["User"] === "") {
+        setUserErr(true);
+      }
   }
 
   function getUser(event) {
     setLogin({ ...login, User: event.target.value });
+    setstatus("");
   }
   function getPass(event) {
     setLogin({ ...login, Password: event.target.value });
+    setstatus("");
   }
   return (
     <section className="bg-black h-screen ">
