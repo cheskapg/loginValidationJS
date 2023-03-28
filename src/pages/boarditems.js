@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
-import { titleView  } from "./boards";
+import { titleGlobal  } from "./boards";
 import { SemanticClassificationFormat } from "typescript";
 import { title } from "process";
 export default function todo() {
@@ -54,8 +54,12 @@ export default function todo() {
   const idChange = (e) => {
     setItem({ ...item, id: e.target.value });
   };
+  useEffect(() => {
+    setItem({...item,id: todo.title})
+  }, [ todo.title]);
   const [identify, setId] = useState("");
   const addTodo = () => {
+   
     if (todo["title"] === "") {
       alert(" Title field empty");
     } else {
@@ -72,9 +76,11 @@ export default function todo() {
       setTodoTab(false);
     }
   };
-  const addCardList = () => {
+  const addCardList = (todoTitle) => {
+    setItem({  id:inputRef.current.value,...item });
+    setItem({  id: todoTitle ,...item});
     setId(inputRef.current.value);
-    setItem({ ...item, id: identify });
+    // setItem({ ...item, id: identify });
     if (item["card"] === "") {
       alert(" Card Title field empty");
     }
@@ -147,7 +153,7 @@ export default function todo() {
               </div>
             ) : (
               <div className="text-2xl font-bold text-green-500 mb-5">
-                {titleView}
+                {titleGlobal}
               </div>
             )}
           </div>
@@ -231,7 +237,7 @@ export default function todo() {
                                       {cards.map((item, index) => {
                                         return (
                                           <section>
-                                            {todo.title == item.id ? (
+                                            {todo.title === item.id ? (
                                               <li
                                                 className="text-sm pt-2 grow"
                                                 key={index}
@@ -255,7 +261,7 @@ export default function todo() {
                                     </ul>
                                   </div>
 
-                                  {item.card !== "add" && addingCard.id === todo.title&&
+                                  {item.card !== "add" && addingCard.id === todo.title &&
                                   addingCard.isAdding === false ? (
                                     <p
                                       class="mb-1 mt-4 font-regular  tracking-tight text-md dark:text-green-500"
@@ -272,6 +278,7 @@ export default function todo() {
                                             ref=    {inputRef}
                                             defaultValue={todo.title}
                                             placeholder="Board Title"
+                                            type="hidden"
                                             onChange={idChange}
                                             className=" pb-2 rounded-lg appearance-none border border-green-500 rounded w-full py-2 px-3 text-green-500 leading-tight focus:outline-none  text-sm focus:shadow-outline bg-black  placeholder:font-normal placeholder:text-sm placeholder:text-green-300"
                                             type="text"
@@ -312,7 +319,7 @@ export default function todo() {
                                           </button>
 
                                           <button
-                                            onClick={addCardList}
+                                            onClick={() => addCardList(todo.title)}
                                             className="mt-3 mx-4 shadow bg-green-500 hover:bg-black hover:text-green-500 focus:shadow-outline  text-black focus:outline-none 
                   py-1 px-10 rounded"
                                             type="button"

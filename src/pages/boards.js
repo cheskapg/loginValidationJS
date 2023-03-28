@@ -2,19 +2,16 @@
 import { useState , useEffect} from "react";
 import { useRouter } from 'next/router';
 import { title } from "process";
-export default function todo() {
+var titleGlobal;
+function boards() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState({
     title: "",
     description: ""
 
   });
-  var titleGlobal;
-  useEffect(() => {
-    useEffect(() => {
-      globalUserList = userList;
-    }, [userList]); = userList;
-  }, [userList]);
+  
+  
   // useEffect(() => {
   //   setTodos((currentList) => [
      
@@ -30,12 +27,18 @@ export default function todo() {
   const [todoTab, setTodoTab] = useState(true);
   var [titleView, setTitleView] = useState("");
 
- 
+
   function openBoard(titleTodo){
-    setTitleView(titleTodo);
     router.push('/boarditems');
+    setTitleView(titleTodo);
+    
+   titleGlobal = titleTodo;
     console.log(titleView);
   }
+  useEffect(() => {
+    titleGlobal = titleView;
+  }, [titleView]);
+ 
  
   const titleChange = (e) => {
     setTodo({ ...todo, title: e.target.value });
@@ -210,3 +213,7 @@ export default function todo() {
     </div>
   );
 }
+export { titleGlobal };
+export default boards;
+
+

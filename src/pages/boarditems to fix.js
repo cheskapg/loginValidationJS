@@ -1,13 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+
+import { titleGlobal  } from "./boards";
 import { SemanticClassificationFormat } from "typescript";
+import { title } from "process";
 export default function todo() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState({
     title: "",
   });
 
-  const [addingCard, setAddingCard] = useState(false);
+  const [addingCard, setAddingCard] = useState({
+    id: "",
+    isAdding: "",
+  
+  });
+  const inputRef = useRef(null);
+
   const [perCard, setPerCard] = useState([]);
   const [cards, setCards] = useState([]);
 
@@ -64,14 +73,16 @@ export default function todo() {
     }
   };
   const addCardList = () => {
-    setId(document.getElementById('id').value);
+    setId(inputRef.current.value);
+    setItem({ ...item, id: identify });
     if (item["card"] === "") {
       alert(" Card Title field empty");
-    } else {
+    }
+     else {
       if (cards.length > 0 && cards[cards.length - 1].card === "add") {
         cards.pop();
       }
-
+      
       setCards([...cards, item]);
       //   setCards((currentList) => [
       //     ...currentList,
@@ -82,7 +93,9 @@ export default function todo() {
      
       setAddingCard(false);
       console.log(item["id"]);
+      console.log(inputRef.current.value);
     }
+    setId(document.getElementById('id').value);
   };
 
   function switchDone() {
@@ -96,13 +109,15 @@ export default function todo() {
     ]);
   }
   function addCard() {
+      setAddingCard({id:identify, ...addingCard});
+    setItem({ card: "", description: "" });
     setAddingCard(true);
 
         console.log("clil");
   }
   function canceladdcard() {
-    setAddingCard(false);
-    console.log("clil");
+    setAddingCard({ ...addingCard, isAdding:false});
+    console.log(addingCard);
   }
   function switchTodo() {
     setTodoTab(true);
@@ -132,7 +147,7 @@ export default function todo() {
               </div>
             ) : (
               <div className="text-2xl font-bold text-green-500 mb-5">
-                Board
+                {titleGlobal}
               </div>
             )}
           </div>
@@ -240,8 +255,8 @@ export default function todo() {
                                     </ul>
                                   </div>
 
-                                  {item.card !== "add" &&
-                                  addingCard === false ? (
+                                  {item.card !== "add" && addingCard.id === todo.title&&
+                                  addingCard.isAdding === false ? (
                                     <p
                                       class="mb-1 mt-4 font-regular  tracking-tight text-md dark:text-green-500"
                                       onClick={addCard}
@@ -254,6 +269,7 @@ export default function todo() {
                                         <div className="text-lg text-sm text-green-500 font-semibold mx-3 mt-4">
                                           <input
                                             id="id"
+                                            ref=    {inputRef}
                                             defaultValue={todo.title}
                                             placeholder="Board Title"
                                             onChange={idChange}

@@ -9,14 +9,14 @@ function App() {
     email: "",
     password: "",
   });
-  function prepreg(){
-    
-  
-  useEffect(() => {
-    setUserList(currentList => [{ username: "admin", email: "emel", password: "test" },  ]);
-  }, []);
-}
-prepreg();
+  function prepreg() {
+    useEffect(() => {
+      setUserList((currentList) => [
+        { username: "admin", email: "emel", password: "test" },
+      ]);
+    }, []);
+  }
+  prepreg();
   const router = useRouter();
   const [passErr, setPassErr] = useState(false);
   const [userErr, setUserErr] = useState(false);
@@ -178,4 +178,4 @@ prepreg();
     </section>
   );
 }
-export { globalUserList};
+export { globalUserList };
