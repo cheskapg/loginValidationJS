@@ -102,6 +102,7 @@ export default function todo() {
       console.log(inputRef.current.value);
     }
     setId(document.getElementById('id').value);
+    setItem({ card: "", description: "" });
   };
 
   function switchDone() {
