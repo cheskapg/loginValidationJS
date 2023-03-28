@@ -1,6 +1,7 @@
 
 import { useState , useEffect} from "react";
 import { useRouter } from 'next/router';
+import { title } from "process";
 export default function todo() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState({
@@ -8,7 +9,12 @@ export default function todo() {
     description: ""
 
   });
- 
+  var titleGlobal;
+  useEffect(() => {
+    useEffect(() => {
+      globalUserList = userList;
+    }, [userList]); = userList;
+  }, [userList]);
   // useEffect(() => {
   //   setTodos((currentList) => [
      
@@ -22,11 +28,19 @@ export default function todo() {
     router.push('/login');
   }
   const [todoTab, setTodoTab] = useState(true);
+  var [titleView, setTitleView] = useState("");
 
+ 
+  function openBoard(titleTodo){
+    setTitleView(titleTodo);
+    router.push('/boarditems');
+    console.log(titleView);
+  }
  
   const titleChange = (e) => {
     setTodo({ ...todo, title: e.target.value });
-  };
+    setTitleView(e.target.value);
+    };
   const descriptionChange = (e) => {
     setTodo({ ...todo, description: e.target.value });
   };
@@ -43,7 +57,7 @@ export default function todo() {
         todos.pop();
       }
   
-      setTodos([...todos, todo]);
+      setTodos([todo,...todos]);
       setTodos((currentList) => [
         ...currentList,
         { title: "plus", description: "" },
@@ -89,21 +103,6 @@ export default function todo() {
           <div className="mx-10">
             <div className="text-2xl font-bold text-green-500 mb-5">Boards</div>
           </div>
-
-          {/* <button
-            onClick={switchTodo}
-            className="mt-3 shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-            type="button"
-          >
-            To Do List
-          </button>
-          <button
-            onClick={switchDone}
-            className="mt-3 ml-5 shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-            type="button"
-          >
-            Done
-          </button> */}
         </div>
 
         {todoTab ? (
@@ -182,8 +181,8 @@ export default function todo() {
                               </div>
                             </li>
                           ) : (
-                            <li className="text-sm pt-2 flex" key={index}>
-                             <div class="flex w-full px-5 py-3 border  text-green-500 border-green-500 rounded-xl shadow ">
+                            <li className="text-sm pt-2 flex"  key={index}>
+                             <div onClick={() => openBoard(todo.title)} class="flex w-full px-5 py-3 border  text-green-500 border-green-500 rounded-xl shadow ">
                               <div className="grid grid-cols-1 mb-3">
                                 <h5 class=" font-semibold text-green-500  tracking-tight text-md">
                                   {todo.title}
@@ -201,13 +200,7 @@ export default function todo() {
                       );
                     })}
                   </ul>
-                  {/* <div className="justify-center mx-10 grid grid-cols-3">
-                    <li className="text-sm pt-2 flex">
-                      <div class="flex w-full px-5 py-3 flex justify-center border border-grey rounded-xl shadow ">
-                        <div className=" text-bold text-2xl">+</div>
-                      </div>
-                    </li>
-                  </div> */}
+                
                 </div>
               </div>
             </div>

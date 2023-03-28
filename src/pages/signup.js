@@ -179,4 +179,3 @@ prepreg();
   );
 }
 export { globalUserList};
-export default App;
